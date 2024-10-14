@@ -23,7 +23,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<Cart>>("api/carts");
+                return await _httpClient.GetFromJsonAsync<IEnumerable<Cart>>("https://ticketmasterapi-widv.onrender.com/api/carts");
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<Cart>($"api/carts/{id}");
+                return await _httpClient.GetFromJsonAsync<Cart>($"https://ticketmasterapi-widv.onrender.com/api/carts/{id}");
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("api/carts", cart);
+                var response = await _httpClient.PostAsJsonAsync("https://ticketmasterapi-widv.onrender.com/api/carts", cart);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadFromJsonAsync<Cart>();
             }
@@ -64,7 +64,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"api/carts/{cart.Id}", cart);
+                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-widv.onrender.com/api/carts/{cart.Id}", cart);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"api/carts/{id}");
+                var response = await _httpClient.DeleteAsync($"https://ticketmasterapi-widv.onrender.com/api/carts/{id}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
