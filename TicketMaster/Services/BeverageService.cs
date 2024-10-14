@@ -5,6 +5,7 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TicketMaster.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace TicketMaster.Services
 {
@@ -23,7 +24,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<Beverage>>("https://localhost:7267/api/beverages");
+                return await _httpClient.GetFromJsonAsync<IEnumerable<Beverage>>("api/beverages");
             }
             catch (Exception ex)
             {
@@ -36,7 +37,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<Beverage>($"https://localhost:7267/api/beverages/{id}");
+                return await _httpClient.GetFromJsonAsync<Beverage>($"api/beverages/{id}");
             }
             catch (Exception ex)
             {
@@ -49,7 +50,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("https://localhost:7267/api/beverages", beverage);
+                var response = await _httpClient.PostAsJsonAsync("api/beverages", beverage);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadFromJsonAsync<Beverage>();
             }
@@ -64,7 +65,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7267/api/beverages/{beverage.Id}", beverage);
+                var response = await _httpClient.PutAsJsonAsync($"api/beverages/{beverage.Id}", beverage);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"https://localhost:7267/api/beverages/{id}");
+                var response = await _httpClient.DeleteAsync($"api/beverages/{id}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)

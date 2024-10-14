@@ -21,20 +21,21 @@ builder.Services.AddIdentity<User, IdentityRole>()
 
 builder.Services.AddControllersWithViews();
 
-// Register HttpClient for services with live API endpoint
+// Register HttpClient for services with live API endpoint from appsettings.json
+var apiBaseUrl = builder.Configuration["ApiSettings:BaseUrl"];
 builder.Services.AddHttpClient<ApiService>(client =>
 {
-    client.BaseAddress = new Uri("https://ticketmasterapi-widv.onrender.com/"); // Live API URL
+    client.BaseAddress = new Uri(apiBaseUrl);
 });
 
 builder.Services.AddHttpClient<CartService>(client =>
 {
-    client.BaseAddress = new Uri("https://ticketmasterapi-widv.onrender.com/"); // Live API URL
+    client.BaseAddress = new Uri(apiBaseUrl);
 });
 
 builder.Services.AddHttpClient<BeverageService>(client =>
 {
-    client.BaseAddress = new Uri("https://ticketmasterapi-widv.onrender.com/"); // Live API URL
+    client.BaseAddress = new Uri(apiBaseUrl);
 });
 
 // CORS policy configuration
@@ -54,27 +55,9 @@ var app = builder.Build();
 app.UseCors();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseMigrationsEndPoint();
-//}
-//else
-//{
-//    app.UseExceptionHandler("/Home/Error");
-//    app.UseHsts();
-//}
-
 app.UseDeveloperExceptionPage();
-
-
-// Comment this out because it caused the deployment issue
-// app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseRouting();
-
-// Ensure authentication is configured correctly
-/*app.UseAuthentication();*/ // Keep this if authentication is required
 app.UseAuthorization();
 
 app.MapControllerRoute(

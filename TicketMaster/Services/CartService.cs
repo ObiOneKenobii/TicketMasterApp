@@ -1,13 +1,13 @@
-﻿namespace TicketMaster.Services
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
-    using System.Net.Http.Json;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using TicketMaster.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using TicketMaster.Models;
 
+namespace TicketMaster.Services
+{
     public class CartService
     {
         private readonly HttpClient _httpClient;
@@ -19,13 +19,11 @@
             _logger = logger;
         }
 
-
         public async Task<IEnumerable<Cart>> GetCartsAsync()
         {
             try
             {
-                // FIX: Remove the underscore in the URL
-                return await _httpClient.GetFromJsonAsync<IEnumerable<Cart>>("https://localhost:7267/api/carts");
+                return await _httpClient.GetFromJsonAsync<IEnumerable<Cart>>("api/carts");
             }
             catch (Exception ex)
             {
@@ -38,7 +36,7 @@
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<Cart>($"https://localhost:7267/api/carts/{id}");
+                return await _httpClient.GetFromJsonAsync<Cart>($"api/carts/{id}");
             }
             catch (Exception ex)
             {
@@ -51,7 +49,7 @@
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("https://localhost:7267/api/carts", cart);
+                var response = await _httpClient.PostAsJsonAsync("api/carts", cart);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadFromJsonAsync<Cart>();
             }
@@ -66,7 +64,7 @@
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"https://localhost:7267/api/carts/{cart.Id}", cart);
+                var response = await _httpClient.PutAsJsonAsync($"api/carts/{cart.Id}", cart);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
@@ -80,7 +78,7 @@
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"https://localhost:7267/api/carts/{id}");
+                var response = await _httpClient.DeleteAsync($"api/carts/{id}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
