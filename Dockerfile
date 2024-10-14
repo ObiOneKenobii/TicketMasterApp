@@ -3,20 +3,20 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the project files to the container
-COPY ["TicketMasterMVC/TicketMasterMVC.csproj", "TicketMasterMVC/"]
-RUN dotnet restore "TicketMasterMVC/TicketMasterMVC.csproj"
+COPY ["TicketMaster/TicketMaster.csproj", "TicketMaster/"]
+RUN dotnet restore "TicketMaster/TicketMaster.csproj"
 
 # Copy everything else and build the application
 COPY . .
-WORKDIR "/src/TicketMasterMVC"
-RUN dotnet build "TicketMasterMVC.csproj" -c Release -o /app/build
+WORKDIR "/src/TicketMaster"
+RUN dotnet build "TicketMaster.csproj" -c Release -o /app/build
 
 # Publish the application
 FROM build AS publish
-RUN dotnet publish "TicketMasterMVC.csproj" -c Release -o /app/publish
+RUN dotnet publish "TicketMaster.csproj" -c Release -o /app/publish
 
 # Final image stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TicketMasterMVC.dll"]
+ENTRYPOINT ["dotnet", "TicketMaster.dll"]
