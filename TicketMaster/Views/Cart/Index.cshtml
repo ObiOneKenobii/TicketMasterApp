@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Cart>
+
+<div class="container mt-5">
+    <!-- Header -->
+    <div class="text-center mb-4">
+        <h2>Your Cart</h2>
+        <p class="text-muted">Review your tickets before proceeding to checkout</p>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="row">
+        @foreach (var cartItem in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <!-- Shopping Cart Icon -->
+                            <div class="me-3">
+                                <i class="fas fa-shopping-cart fa-3x text-primary"></i>
+                            </div>
+
+                            <!-- Cart Details -->
+                            <div>
+                                <h5>@cartItem.Beverages</h5>
+                                <p class="text-muted">Total Price: $@cartItem.TotalPrice</p>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="mt-3">
+                            <a asp-action="Edit" asp-route-id="@cartItem.Id" class="btn btn-outline-primary">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@cartItem.Id" class="btn btn-outline-danger">
+                                <i class="fas fa-trash"></i> Remove
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Checkout Button & Totals -->
+    <div class="mt-5 text-center">
+        <h4>Total: $@(Model.Sum(c => c.TotalPrice))</h4>
+        <a asp-action="Create" class="btn btn-success btn-lg">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+        </a>
+    </div>
+</div>
+
+<!-- Font Awesome for Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

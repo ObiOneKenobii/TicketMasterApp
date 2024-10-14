@@ -1,0 +1,25 @@
+﻿@model TicketMaster.Models.Cart
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Cart Details</h2>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Beverages</label>
+        <div class="col-sm-10">
+            <p class="form-control-plaintext">@Model.Beverages</p>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">Total Price</label>
+        <div class="col-sm-10">
+            <p class="form-control-plaintext">@Model.TotalPrice</p>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

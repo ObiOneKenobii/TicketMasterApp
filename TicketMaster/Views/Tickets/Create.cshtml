@@ -1,0 +1,56 @@
+﻿@model TicketMaster.Models.Ticket
+
+@{
+    ViewData["Title"] = "Create Ticket";
+}
+
+<h1>Create Ticket</h1>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="EventName"></label>
+        <input asp-for="EventName" class="form-control" />
+        <span asp-validation-for="EventName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventDate"></label>
+        <input asp-for="EventDate" class="form-control" type="datetime-local" />
+        <span asp-validation-for="EventDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ArtistName"></label>
+        <input asp-for="ArtistName" class="form-control" />
+        <span asp-validation-for="ArtistName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CoverPictureUrl"></label>
+        <input asp-for="CoverPictureUrl" class="form-control" />
+        <span asp-validation-for="CoverPictureUrl" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Back</a> <!-- Back button -->
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<span><br /> </span>
+<span><br /> </span>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

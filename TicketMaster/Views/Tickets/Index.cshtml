@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TicketMaster.Models.Ticket>
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+@{
+    bool isAdmin = ViewBag.IsAdmin ?? false;
+}
+
+<h2>Welcome to Tickets</h2>
+
+@if (isAdmin)
+{
+    <p>You are logged in as an Admin.</p>
+    <a href="@Url.Action("Create", "Tickets")">Create New Ticket</a> <!-- Admin-only action -->
+}
+else
+{
+    <p>You are logged in as a User.</p>
+}
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">Tickets</h1>
+            <p class="lead">Welcome to Ticketmaster, the home of ticket booking</p>
+            <a class="btn btn-primary mb-4" asp-action="Create">Buy New Ticket</a>
+        </div>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="@item.CoverPictureUrl" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.EventName</h5>
+                        <p class="card-text">@item.ArtistName</p>
+                        <p class="card-text">@item.Location</p>
+                        <p class="card-text"><small class="text-muted">@item.EventDate.ToString("d")</small></p>
+                        <p class="card-text"><strong>@item.Price.ToString("C")</strong></p>
+                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<span><br /> </span>
+<span><br /> </span> 
