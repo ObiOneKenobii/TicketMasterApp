@@ -5,7 +5,6 @@ using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using TicketMaster.Models;
-using Microsoft.Extensions.Configuration;
 
 namespace TicketMaster.Services
 {
