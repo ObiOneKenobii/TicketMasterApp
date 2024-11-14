@@ -24,18 +24,18 @@ builder.Services.AddControllersWithViews();
 // Register HttpClient for services with the correct API endpoint
 builder.Services.AddHttpClient<ApiService>(client =>
 {
-    client.BaseAddress = new Uri("https://ticketmasterapi-widv.onrender.com/"); // Live API URL
+    client.BaseAddress = new Uri("https://ticketmasterapi-mugk.onrender.com"); // Live API URL
 });
 
 
 builder.Services.AddHttpClient<CartService>(client =>
 {
-    client.BaseAddress = new Uri("https://ticketmasterapi-widv.onrender.com/"); // Live API URL
+    client.BaseAddress = new Uri("https://ticketmasterapi-mugk.onrender.com"); // Live API URL
 });
 
 builder.Services.AddHttpClient<BeverageService>(client =>
 {
-    client.BaseAddress = new Uri("https://ticketmasterapi-widv.onrender.com/"); // Live API URL
+    client.BaseAddress = new Uri("https://ticketmasterapi-mugk.onrender.com"); // Live API URL
 });
 
 // CORS policy configuration
@@ -53,6 +53,8 @@ var app = builder.Build();
 
 // Use CORS before any other middleware
 app.UseCors();
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 // Configure the HTTP request pipeline.
 app.UseDeveloperExceptionPage();
@@ -68,8 +70,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 
 app.Run();
 

@@ -23,7 +23,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<Ticket>>("https://ticketmasterapi-widv.onrender.com/api/tickets");
+                return await _httpClient.GetFromJsonAsync<IEnumerable<Ticket>>("https://ticketmasterapi-mugk.onrender.com/api/tickets");
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<Ticket>($"https://ticketmasterapi-widv.onrender.com/api/tickets/{id}");
+                return await _httpClient.GetFromJsonAsync<Ticket>($"https://ticketmasterapi-mugk.onrender.com/api/tickets/{id}");
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("https://ticketmasterapi-widv.onrender.com/api/tickets", ticket);
+                var response = await _httpClient.PostAsJsonAsync("https://ticketmasterapi-mugk.onrender.com/api/tickets", ticket);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadFromJsonAsync<Ticket>();
             }
@@ -64,7 +64,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-widv.onrender.com/api/tickets/{ticket.Id}", ticket);
+                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-mugk.onrender.com/{ticket.Id}", ticket);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"https://ticketmasterapi-widv.onrender.com/api/tickets/{id}");
+                var response = await _httpClient.DeleteAsync($"https://ticketmasterapi-mugk.onrender.com/api/tickets/{id}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)

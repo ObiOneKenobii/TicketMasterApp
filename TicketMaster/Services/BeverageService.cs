@@ -23,7 +23,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<IEnumerable<Beverage>>("https://ticketmasterapi-widv.onrender.com/api/beverages");
+                return await _httpClient.GetFromJsonAsync<IEnumerable<Beverage>>("https://ticketmasterapi-mugk.onrender.com/api/beverages");
             }
             catch (Exception ex)
             {
@@ -36,7 +36,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                return await _httpClient.GetFromJsonAsync<Beverage>($"https://ticketmasterapi-widv.onrender.com/api/beverages/{id}");
+                return await _httpClient.GetFromJsonAsync<Beverage>($"https://ticketmasterapi-mugk.onrender.com/api/beverages/{id}");
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("https://ticketmasterapi-widv.onrender.com/api/beverages", beverage);
+                var response = await _httpClient.PostAsJsonAsync("https://ticketmasterapi-mugk.onrender.com/api/beverages", beverage);
                 response.EnsureSuccessStatusCode();
                 return await response.Content.ReadFromJsonAsync<Beverage>();
             }
@@ -64,7 +64,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-widv.onrender.com/api/beverages/{beverage.Id}", beverage);
+                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-mugk.onrender.com/api/beverages/{beverage.Id}", beverage);
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace TicketMaster.Services
         {
             try
             {
-                var response = await _httpClient.DeleteAsync($"https://ticketmasterapi-widv.onrender.com/api/beverages/{id}");
+                var response = await _httpClient.DeleteAsync($"https://ticketmasterapi-mugk.onrender.com/api/beverages/{id}");
                 response.EnsureSuccessStatusCode();
             }
             catch (Exception ex)
