@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TicketMaster.Models;
 using TicketMaster.Services;
-using TicketMaster.Models;
+
 
 
 namespace TicketMaster.Controllers
