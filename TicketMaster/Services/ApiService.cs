@@ -87,5 +87,36 @@ namespace TicketMaster.Services
                 throw;
             }
         }
+
+        public async Task TransferTickets(Ticket ticket)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-mugk.onrender.com/{ticket.Id}", ticket);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred while updating the ticket with ID {ticket.Id}.");
+                throw;
+            }
+        }
+
+        public async Task TransferTicketAsync(int id, string seatNumber)
+        {
+            try
+            {
+                var updatedTicket = new { Id = id, SeatNumber = seatNumber }; // Minimal object for the API request
+                var response = await _httpClient.PutAsJsonAsync($"https://ticketmasterapi-mugk.onrender.com/api/tickets/transfer/{id}", updatedTicket);
+                response.EnsureSuccessStatusCode();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"An error occurred while transferring the ticket with ID {id}.");
+                throw;
+            }
+        }
+
+
     }
 }

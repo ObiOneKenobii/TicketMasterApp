@@ -93,6 +93,40 @@ namespace TicketMaster.Controllers
             return RedirectToAction(nameof(Index)); // Redirect to the index action after deletion
         }
 
+        public async Task<IActionResult> TransferTickets(int id)
+        {
+            var ticket = await _apiService.GetTicketAsync(id);
+            if (ticket == null) return NotFound();
+
+            return View(ticket); // Render view with ticket details
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> TransferTickets(int id, string seatNumber)
+        {
+            if (string.IsNullOrWhiteSpace(seatNumber))
+            {
+                ModelState.AddModelError("", "Seat number is required.");
+                var ticket = await _apiService.GetTicketAsync(id);
+                return View(ticket);
+            }
+
+            try
+            {
+                await _apiService.TransferTicketAsync(id, seatNumber);
+                return RedirectToAction("Index"); // Redirect to ticket listing after successful transfer
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+                var ticket = await _apiService.GetTicketAsync(id);
+                return View(ticket);
+            }
+        }
+
+
+
     }
 }
 
