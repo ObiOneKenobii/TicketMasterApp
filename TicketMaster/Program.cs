@@ -38,23 +38,23 @@ builder.Services.AddHttpClient<BeverageService>(client =>
     client.BaseAddress = new Uri("https://ticketmasterapi-mugk.onrender.com"); // Live API URL
 });
 
-// CORS policy configuration
-//builder.Services.AddCors(options =>
-//{
-//    options.AddDefaultPolicy(corsBuilder =>
-//    {
-//        corsBuilder.WithOrigins("https://ticketbookingapp-r524.onrender.com") // Replace with your actual MVC app URL
-//                   .AllowAnyHeader()
-//                   .AllowAnyMethod();
-//    });
-//});
+//CORS policy configuration//
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(corsBuilder =>
+    {
+        corsBuilder.WithOrigins("https://ticketbookingapp-r524.onrender.com") // Replace with your actual MVC app URL
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
-// Use CORS before any other middleware
-//app.UseCors();
-//var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-//builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+//Use CORS before any other middleware
+app.UseCors();
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 // Configure the HTTP request pipeline.
 app.UseDeveloperExceptionPage();
