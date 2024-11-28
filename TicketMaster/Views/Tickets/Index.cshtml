@@ -14,18 +14,16 @@
 
 <div class="container">
     <!-- Navigation Buttons -->
-    <div class="row mb-5">
-        <div class="col-md-6">
-            <a href="@Url.Action("UpcomingEvents", "Tickets")" class="btn btn-light btn-lg btn-block" style="background-color: #dff9fb; border: 2px solid #7ed6df; font-size: 18px;">
-                <strong>Upcoming Events</strong>
-            </a>
-        </div>
-        <div class="col-md-6">
-            <a href="@Url.Action("PastEvents", "Tickets")" class="btn btn-light btn-lg btn-block" style="background-color: #dff9fb; border: 2px solid #7ed6df; font-size: 18px;">
-                <strong>Past Events</strong>
-            </a>
-        </div>
+    <div class="d-flex justify-content-center mb-5">
+        <a href="@Url.Action("UpcomingEvents", "Tickets")" class="btn btn-light btn-lg mx-2" style="background-color: #dff9fb; border: 2px solid #7ed6df; font-size: 18px;">
+            <strong>Upcoming Events</strong>
+        </a>
+        <a href="@Url.Action("PastEvents", "Tickets")" class="btn btn-light btn-lg mx-2" style="background-color: #dff9fb; border: 2px solid #7ed6df; font-size: 18px;">
+            <strong>Past Events</strong>
+        </a>
     </div>
+</div>
+
 
     <!-- Tickets Section -->
     <div class="row">
@@ -40,7 +38,7 @@
                         <p class="card-text">@item.Location</p>
                         <p class="card-text"><small class="text-muted">@item.EventDate.ToString("d")</small></p>
                         <p class="card-text"><strong>@item.Price.ToString("C")</strong></p>
-                        <a class="btn btn-primary" asp-action="Create">Buy Ticket</a> <!-- Buy Tickets Button -->
+                      @*   <a class="btn btn-primary" asp-action="Create">Buy Ticket</a> *@ <!-- Buy Tickets Button -->
                         <a class="btn btn-warning mt-2" asp-action="TransferTickets" asp-route-id="@item.Id">Transfer Ticket</a> <!-- Transfer Tickets Button -->
                         @if (isAdmin)
                         {
@@ -55,56 +53,3 @@
         }
     </div>
 </div>
-
-@* @model IEnumerable<TicketMaster.Models.Ticket>
-    ViewData["Title"] = "Tickets";
-}
-
-@{
-    bool isAdmin = ViewBag.IsAdmin ?? false;
-}
-
-<h2>Welcome to Tickets</h2>
-
-@if (isAdmin)
-{
-    <p>You are logged in as an Admin.</p>
-    <a href="@Url.Action("Create", "Tickets")">Create New Ticket</a> <!-- Admin-only action -->
-}
-else
-{
-    <p>You are logged in as a User.</p>
-}
-
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <h1 class="display-4">Tickets</h1>
-            <p class="lead">Welcome to Ticketmaster, the home of ticket booking</p>
-            <a class="btn btn-primary mb-4" asp-action="Create">Buy New Ticket</a>
-        </div>
-    </div>
-
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="@item.CoverPictureUrl" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@item.EventName</h5>
-                        <p class="card-text">@item.ArtistName</p>
-                        <p class="card-text">@item.Location</p>
-                        <p class="card-text"><small class="text-muted">@item.EventDate.ToString("d")</small></p>
-                        <p class="card-text"><strong>@item.Price.ToString("C")</strong></p>
-                        <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-<span><br /> </span>
-<span><br /> </span>  *@

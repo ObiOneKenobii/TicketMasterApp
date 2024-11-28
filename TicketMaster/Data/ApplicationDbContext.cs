@@ -12,6 +12,7 @@ namespace TicketMaster.Data
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Beverage> Beverages { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet <Event> Events { get; set; }
 
     }
 }

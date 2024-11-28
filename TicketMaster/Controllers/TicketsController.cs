@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TicketMaster.Data;
 using TicketMaster.Models;
 using TicketMaster.Services;
 
@@ -10,10 +12,13 @@ namespace TicketMaster.Controllers
     public class TicketsController : Controller
     {
         private readonly ApiService _apiService;
+        private readonly ApplicationDbContext _context;
 
-        public TicketsController(ApiService apiService)
+
+        public TicketsController(ApiService apiService, ApplicationDbContext context)
         {
             _apiService = apiService;
+            _context = context;
         }
 
 
@@ -151,60 +156,31 @@ namespace TicketMaster.Controllers
         {
             return View();
         }
+
+        public IActionResult UpcomingEvents()
+        {
+            // Ensure you're fetching upcoming events (EventDate >= today)
+            var upcomingEvents = _context.Tickets
+                .Where(t => t.EventDate >= DateTime.Now)
+                .OrderBy(t => t.EventDate)
+                .ToList();
+
+            return View(upcomingEvents);
+        }
+
+        // GET: Past Events
+        public IActionResult PastEvents()
+        {
+            // Ensure you're fetching past events (EventDate < today)
+            var pastEvents = _context.Tickets
+                .Where(t => t.EventDate < DateTime.Now)
+                .OrderByDescending(t => t.EventDate)
+                .ToList();
+
+            return View(pastEvents);
+        }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //public async Task<IActionResult> TransferTickets(int id)
-    //{
-    //    var ticket = await _apiService.GetTicketAsync(id);
-    //    if (ticket == null) return NotFound();
-
-    //    return View(ticket); // Render view with ticket details
-    //}
-
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public async Task<IActionResult> TransferTickets(int id, string seatNumber)
-    //{
-    //    if (string.IsNullOrWhiteSpace(seatNumber))
-    //    {
-    //        ModelState.AddModelError("", "Seat number is required.");
-    //        var ticket = await _apiService.GetTicketAsync(id);
-    //        return View(ticket);
-    //    }
-
-    //    try
-    //    {
-    //        await _apiService.TransferTicketAsync(id, seatNumber);
-    //        return RedirectToAction("Index"); // Redirect to ticket listing after successful transfer
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        ModelState.AddModelError("", $"An error occurred: {ex.Message}");
-    //        var ticket = await _apiService.GetTicketAsync(id);
-    //        return View(ticket);
-    //    }
-    //}
-
-
 
 }
 
