@@ -4,6 +4,7 @@
     <div class="transfer-form">
         <h2 class="text-center">Transfer Ticket</h2>
         <p class="text-center">@Model.EventName - @Model.Location</p>
+
         <form asp-action="TransferTickets" method="post">
             <input type="hidden" name="id" value="@Model.Id" />
             <div class="form-group">

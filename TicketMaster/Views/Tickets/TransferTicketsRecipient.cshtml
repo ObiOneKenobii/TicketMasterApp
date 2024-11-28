@@ -1,0 +1,30 @@
+﻿@model TicketMaster.Models.Ticket
+
+@{
+    ViewData["Title"] = "Transfer Ticket Details";
+}
+
+<div class="container mt-5">
+    <h3 class="text-center">Enter Recipient Details</h3>
+
+    <form asp-action="ConfirmTransfer" method="post">
+        <input type="hidden" name="SeatNumber" value="@Model.SeatNumber" />
+        
+        <div class="form-group">
+            <label for="RecipientName">Recipient Name</label>
+            <input type="text" class="form-control" id="RecipientName" name="RecipientName" required />
+        </div>
+        
+        <div class="form-group">
+            <label for="RecipientEmail">Recipient Email</label>
+            <input type="email" class="form-control" id="RecipientEmail" name="RecipientEmail" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Note">Note</label>
+            <textarea class="form-control" id="Note" name="Note"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3 btn-block">Submit and Transfer Ticket</button>
+    </form>
+</div>

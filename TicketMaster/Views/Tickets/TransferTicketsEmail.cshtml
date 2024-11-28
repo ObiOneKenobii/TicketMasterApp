@@ -1,0 +1,15 @@
+﻿<div class="overlay">
+    <div class="transfer-form">
+        <h2 class="text-center">Enter Recipient Details</h2>
+        <p class="text-center">Seat Selected: <strong>@ViewBag.SeatNumber</strong></p>
+
+        <form asp-action="ConfirmPayment" method="post">
+            <div class="form-group">
+                <label for="RecipientEmail">Recipient Email</label>
+                <input type="email" name="recipientEmail" id="RecipientEmail" class="form-control" placeholder="Enter recipient email" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-3">Proceed to Payment</button>
+        </form>
+    </div>
+</div>

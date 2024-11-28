@@ -93,14 +93,17 @@ namespace TicketMaster.Controllers
             return RedirectToAction(nameof(Index)); // Redirect to the index action after deletion
         }
 
+
+        // GET: Transfer Tickets (First Step)
         public async Task<IActionResult> TransferTickets(int id)
         {
             var ticket = await _apiService.GetTicketAsync(id);
             if (ticket == null) return NotFound();
 
-            return View(ticket); // Render view with ticket details
+            return View(ticket);
         }
 
+        // POST: Submit Seat Selection
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> TransferTickets(int id, string seatNumber)
@@ -112,21 +115,97 @@ namespace TicketMaster.Controllers
                 return View(ticket);
             }
 
-            try
-            {
-                await _apiService.TransferTicketAsync(id, seatNumber);
-                return RedirectToAction("Index"); // Redirect to ticket listing after successful transfer
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"An error occurred: {ex.Message}");
-                var ticket = await _apiService.GetTicketAsync(id);
-                return View(ticket);
-            }
+            TempData["SeatNumber"] = seatNumber;
+            TempData["TicketId"] = id;
+            return RedirectToAction("TransferTicketsEmail");
         }
 
+        // GET: Email Input View (Second Step)
+        public IActionResult TransferTicketsEmail()
+        {
+            var seatNumber = TempData["SeatNumber"]?.ToString();
+            var ticketId = TempData["TicketId"];
+            if (string.IsNullOrEmpty(seatNumber) || ticketId == null) return RedirectToAction("Index");
 
+            ViewBag.SeatNumber = seatNumber;
+            return View();
+        }
 
+        // POST: Confirm Transfer and Proceed to Payment
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmPayment(string recipientEmail)
+        {
+            if (string.IsNullOrWhiteSpace(recipientEmail))
+            {
+                ModelState.AddModelError("", "Recipient email is required.");
+                return View("TransferTicketsEmail");
+            }
+
+            TempData["RecipientEmail"] = recipientEmail;
+            return RedirectToAction("PaymentPage");
+        }
+
+        // GET: Payment Instructions
+        public IActionResult PaymentPage()
+        {
+            return View();
+        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //public async Task<IActionResult> TransferTickets(int id)
+    //{
+    //    var ticket = await _apiService.GetTicketAsync(id);
+    //    if (ticket == null) return NotFound();
+
+    //    return View(ticket); // Render view with ticket details
+    //}
+
+    //[HttpPost]
+    //[ValidateAntiForgeryToken]
+    //public async Task<IActionResult> TransferTickets(int id, string seatNumber)
+    //{
+    //    if (string.IsNullOrWhiteSpace(seatNumber))
+    //    {
+    //        ModelState.AddModelError("", "Seat number is required.");
+    //        var ticket = await _apiService.GetTicketAsync(id);
+    //        return View(ticket);
+    //    }
+
+    //    try
+    //    {
+    //        await _apiService.TransferTicketAsync(id, seatNumber);
+    //        return RedirectToAction("Index"); // Redirect to ticket listing after successful transfer
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        ModelState.AddModelError("", $"An error occurred: {ex.Message}");
+    //        var ticket = await _apiService.GetTicketAsync(id);
+    //        return View(ticket);
+    //    }
+    //}
+
+
+
 }
+
 

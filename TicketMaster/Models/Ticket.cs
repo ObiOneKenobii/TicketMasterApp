@@ -10,5 +10,6 @@
         public required string ArtistName { get; set; }
         public string ? CoverPictureUrl  { get; set; }
         public string?  SeatNumber { get; set; } // Added property
+        
     }
 }
